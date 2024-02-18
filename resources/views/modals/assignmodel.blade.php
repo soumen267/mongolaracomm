@@ -14,10 +14,12 @@
           <form action="{{ route('project.assignstore') }}" method="post" enctype="multipart/form-data" id="assignform">
             @csrf
             <input type="hidden" name="projectid" id="projectid" value="">
-            <div class="form-group">
-              <label for="formGroupExampleInput">Username</label>
+            <div class="form-group row">
+              <label class="col-sm-12 col-lg-2 text-left control-label col-form-label">User</label>
+              <div class="col-sm-12 col-lg-10">
               <select name="user[]" id="user" class="form-control form-control-lg select2" multiple="">
               </select>
+              </div>
             </div>
           </form>
         </div>

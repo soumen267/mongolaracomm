@@ -79,11 +79,29 @@
             transition: color .15s ease-in-out,background-color .15s ease-in-out,
             border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         }
+        .loader{
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: rgba(255,255,255,0.9);
+    }
     </style>
     @stack('style')
 </head>
 <body>
     <div class="container-scroller">
+        <div class="col-md-12 col-sm-12 grid-margin stretch-card loader">
+            <div class="loader-demo-box">
+              <div class="dot-opacity-loader">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+        </div>
         @include('layouts.partials.header')
         <div class="container-fluid page-body-wrapper">
         @include('layouts.partials.sidebar')

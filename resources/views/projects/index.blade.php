@@ -28,32 +28,28 @@
                       <i class="icon-sm fa fa-user mr-2"></i>
                       All
                     </p>
-                    <h2>54000</h2>
-                    <label class="badge badge-outline-success badge-pill">2.7% increase</label>
+                    <h4>54000</h4>
                   </div>
                   <div class="statistics-item">
                     <p>
                       <i class="icon-sm fas fa-hourglass-half mr-2"></i>
                       In Progress
                     </p>
-                    <h2>123.50</h2>
-                    <label class="badge badge-outline-danger badge-pill">30% decrease</label>
+                    <h4>123.50</h4>
                   </div>
                   <div class="statistics-item">
                     <p>
                       <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
                       On Hold
                     </p>
-                    <h2>3500</h2>
-                    <label class="badge badge-outline-success badge-pill">12% increase</label>
+                    <h4>3500</h4>
                   </div>
                   <div class="statistics-item">
                     <p>
                       <i class="icon-sm fas fa-check-circle mr-2"></i>
                       Complete
                     </p>
-                    <h2>7500</h2>
-                    <label class="badge badge-outline-success badge-pill">57% increase</label>
+                    <h4>7500</h4>
                   </div>
               </div>
             </div>
@@ -137,7 +133,8 @@
                         ${item.duedate}
                     </td>
                     <td>
-                        <input id="form-tags-1" name="tags-1" type="text" data-role="tagsinput" value="${item.tag}">
+                        <input id="form-tags-1" name="tags-1" type="hidden" data-role="tagsinput" value="${item.tag}">
+                        <span class="badge badge-success badge-pill">${item.tag}</span>
                     </td>
                     <td>
                        <div class="progress">
@@ -155,7 +152,7 @@
                       </form>
                     </td>
                     <td>
-                      <button type="button" class="btn btn-primary btn-sm assign-user bl" data-id="${item._id}"><i class="fa fa-tasks" title="Assigned User"></i></button>
+                      <button type="button" class="btn btn-primary btn-sm assign-user bl" data-id="${item._id}"><i class="fa fa-user" title="Assigned User"></i></button>
                     </td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm clone-project bl" data-id="${item._id}"><i class="fa fa-clone" title="Cloned Project"></i></button>
@@ -166,6 +163,10 @@
     }
 $(document).on("click", ".add-project", function (e) { 
    e.preventDefault();
+   $(".modal-body").hide();
+   setTimeout(() => {
+      $(".modal-body").slideDown(); 
+   }, 500);
    $('#addproject').modal('show');
    $("#addprojectform")[0].reset();
    $(".texterror").empty();
@@ -217,6 +218,10 @@ $("#addprojectdata").click(function (e) {
           success: function (response) {
             console.log(response);
             $('#editproject').modal('show');
+            $(".modal-body").hide();
+            setTimeout(() => {
+                $(".modal-body").slideDown(); 
+            }, 500);
             $("#userid").val(response._id)
             $(".client").val(response.client)
             $(".title").val(response.title)
@@ -234,10 +239,12 @@ $('body').on("click", ".assign-user", function(e){
           type: "GET",
           url: "{{ route('project.assign') }}",
           dataType:"json",
+          data: {"projectId": projectId},
           success: function (response) {
             console.log(response);
             $('#assignmodel').modal('show');
             $("#projectid").val(projectId)
+            $("#user").val(response.getUserName);
             $.each(response.getUsers,function(key, value)
               {
                 $("#user").append('<option value=' + value._id + '>' + value.name + '</option>'); // return empty
@@ -291,6 +298,7 @@ $.ajax({
   $(".btn-closed").click(function(){
       $('#addproject').modal('hide');
       $('#editproject').modal('hide');
+      $('#assignmodel').modal('hide');
   })
 
   $('#master').on('click', function(e) {  
@@ -434,9 +442,12 @@ $(document).on('click', ".delete-project", function (e) {
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
+    setTimeout(() => {
+      $(".loader").hide();
+    }, 500);
     $('.select2').select2({
     closeOnSelect: false
-  });
+    });
 });
 </script>
 @endpush

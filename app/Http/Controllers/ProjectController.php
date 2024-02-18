@@ -113,9 +113,12 @@ class ProjectController extends Controller
     }
 
     public function assign(Request $request){
-        $getUsers = User::all();
+        $getUserByProject = ProjectStatus::where('project_id', '=', $request->projectId)->get();
+        $getUserName = User::where("_id", "=", $getUserByProject[0]->user_id)->first();
+        $getUsers = User::get();
         return response()->json([
             'getUsers' => $getUsers,
+            'getUserName' => $getUserName->name,
             'status'=> 200,
         ]);
     }
