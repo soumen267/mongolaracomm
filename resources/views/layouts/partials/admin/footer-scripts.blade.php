@@ -8,6 +8,7 @@
 <script src="{{ asset("assets/js/misc.js")}}"></script>
 <script src="{{ asset("assets/js/settings.js")}}"></script>
 <script src="{{ asset("assets/js/todolist.js")}}"></script>
+<script src="{{ asset("assets/js/dragula.js")}}"></script>
 <!-- Custom js for this page-->
 <script src="{{ asset("assets/js/formpickers.js") }}"></script>
 <script src="{{ asset("assets/js/form-addons.js") }}"></script>

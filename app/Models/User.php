@@ -9,11 +9,11 @@ use Jenssegers\Mongodb\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
-
+use Kyslik\ColumnSortable\Sortable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +28,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
     ];
+
+    public $sortable = ['id','name', 'email', 'created_at', 'phone'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -47,5 +50,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d',
     ];
 }

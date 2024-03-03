@@ -131,8 +131,13 @@
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item preview-item">
+                @php
+                  $name = Auth::user()->image;
+                @endphp
               <div class="preview-thumbnail">
-                  <img src="{{ asset("assets/images/faces/face2.jpg") }}" alt="image" class="profile-pic">
+                  @if ($name)
+                  <img src="{{ asset("storage/images/users/$name") }}" alt="image" class="profile-pic">
+                  @endif
               </div>
               <div class="preview-item-content flex-grow">
                 <h6 class="preview-subject ellipsis font-weight-medium">Tim Cook
@@ -161,7 +166,9 @@
         </li>
         <li class="nav-item nav-profile dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-            <img src="{{ asset("assets/images/faces/face5.jpg") }}" alt="profile"/>
+            @if ($name)
+             <img src="{{ asset("storage/images/users/$name") }}" alt="profile">
+            @endif
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
             <a class="dropdown-item">

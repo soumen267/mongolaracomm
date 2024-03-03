@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
+use App\Mail\UserNotify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
@@ -14,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $getUsers = User::all();
+        $getUsers = User::sortable()->where('_id', '!=', Auth::user()->id)->get();
         return view("users.index", compact("getUsers"));
     }
 
@@ -40,16 +45,17 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required',
+            'phone' => 'required',
             'images' => 'nullable'
         ]);
         $createData = new User();
         $createData->name = $request->name;
         $createData->email = $request->email;
+        $createData->phone = $request->phone;
         $createData->password = \bcrypt($request->password);
         if($request->file('image')){
             $file=$request->file('image');
             $filename = date('YmdHi').$file->getClientOriginalName();
-            //$file->move(public_path('public/images/users'), $filename);
             $file->storeAs('public/images/users', $filename);
             $createData->images = $filename;
         }
@@ -98,11 +104,13 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'phone' => 'required'
         ]);
         $savedata = User::findOrFail($request->userid);
         $savedata->name = $request->name;
         $savedata->email = $request->email;
+        $savedata->phone = $request->phone;
         if($request->file('image')){
             $file=$request->file('image');
             $filename = date('YmdHi').$file->getClientOriginalName();
@@ -124,14 +132,70 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         $deleteUser = User::findOrFail($id);
         if($deleteUser){
             $deleteUser->delete();
-            return redirect(route('users.index'))->with('success', 'User deleted successfully.');
+            $getUsersData = User::all();
+            return response()->json([
+                'getUsersData' => $getUsersData,
+                'status'=> 200,
+                'message'=>'User deleted successfully!',
+            ]);
         }else{
-            return redirect(route('users.index'))->with('error', 'Something went wrong.');
+            return response()->json([
+                'status'=> 400,
+                'message'=>'Something went wrong!',
+            ]);
+        }
+    }
+
+    public function getData(Request $request){
+        $getUsername = User::where('_id', '=', $request->userID)->pluck('email');
+        $fromEmail = Auth::user()->email;
+        if($getUsername){
+            return response()->json([
+                'fromEmail' => $fromEmail,
+                'getUsername' => $getUsername,
+                'status'=> 200,
+                'message'=>'User received!',
+            ]);
+        }else{
+            return response()->json([
+                'status'=> 400,
+                'message'=>'Something went wrong!',
+            ]);
+        }
+
+    }
+
+    public function sendMail(Request $request){
+        $request->validate([
+            'toname' => 'required',
+            'form' => 'required',
+            'subject' => 'nullable',
+            'body' => 'required'
+        ]);
+        $getname = User::where('_id', '=', $request->emailuserid)->pluck('name');
+        $data = array(
+            'name'=> $getname,
+            'subject' => $request->subject,
+            'body' => $request->body
+        );
+        Mail::to($request->toname)
+        ->cc($request->form)
+        ->send(new UserNotify($data));
+    }
+    public function userOnlineStatus()
+    {
+        $users = User::all();
+        foreach ($users as $user) {
+            if (Cache::has('user-is-online-' . $user->id))
+                echo $user->name . " is online. Last seen: " . Carbon::parse($user->last_seen)->diffForHumans() . " <br>";
+            else
+                echo $user->name . " is offline. Last seen: " . Carbon::parse($user->last_seen)->diffForHumans() . " <br>";
         }
     }
 }

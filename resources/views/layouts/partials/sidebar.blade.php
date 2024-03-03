@@ -171,7 +171,12 @@
           <li class="nav-item nav-profile">
             <div class="nav-link">
               <div class="profile-image">
-                <img src="{{ asset("assets/images/faces/face5.jpg") }}" alt="image"/>
+                @php
+                  $name = Auth::user()->image;
+                @endphp
+                @if ($name)
+                <img src="{{ asset("storage/images/users/$name") }}" alt="image"/>  
+                @endif     
               </div>
               <div class="profile-name">
                 <p class="name">
@@ -214,7 +219,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/widgets.html">
+            <a class="nav-link" href="{{ route('task.show') }}">
               <i class="fa fa-list-alt menu-icon"></i>
               <span class="menu-title">Tasks</span>
             </a>

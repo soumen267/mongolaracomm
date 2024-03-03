@@ -1,107 +1,108 @@
 @extends('layouts.app')
 @section('content')
 <div class="content-wrapper">
-    <div class="template-demo">
-        <div class="row">
-          <div class="col-lg-3">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb breadcrumb-custom" style="border:none!important">
-                <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><span style="margin-left:3px;">Project</span></li>
-              </ol>
-            </nav>
-          </div>
-          <div class="col-lg-9">
-            <button type="button" class="float-right btn btn-danger btn-circle add-project">
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
-        </div>
+  <div class="template-demo">
+    <div class="row">
+      <div class="col-lg-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-custom" style="border:none!important">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><span style="margin-left:3px;">Project</span></li>
+          </ol>
+        </nav>
       </div>
-    <div class="row grid-margin">
-        <div class="col-12">
-          <div class="card card-statistics">
-            <div class="card-body">
-              <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                  <div class="statistics-item">
-                    <p>
-                      <i class="icon-sm fa fa-user mr-2"></i>
-                      All
-                    </p>
-                    <h4>54000</h4>
-                  </div>
-                  <div class="statistics-item">
-                    <p>
-                      <i class="icon-sm fas fa-hourglass-half mr-2"></i>
-                      In Progress
-                    </p>
-                    <h4>123.50</h4>
-                  </div>
-                  <div class="statistics-item">
-                    <p>
-                      <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
-                      On Hold
-                    </p>
-                    <h4>3500</h4>
-                  </div>
-                  <div class="statistics-item">
-                    <p>
-                      <i class="icon-sm fas fa-check-circle mr-2"></i>
-                      Complete
-                    </p>
-                    <h4>7500</h4>
-                  </div>
-              </div>
+      <div class="col-lg-9">
+        <button type="button" class="float-right btn btn-danger btn-circle add-project">
+          <i class="fa fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row grid-margin">
+    <div class="col-12">
+      <div class="card card-statistics">
+        <div class="card-body">
+          <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+            <div class="statistics-item">
+              <p>
+                <i class="icon-sm fa fa-user mr-2"></i>
+                All
+              </p>
+              <h4>54000</h4>
+            </div>
+            <div class="statistics-item">
+              <p>
+                <i class="icon-sm fas fa-hourglass-half mr-2"></i>
+                In Progress
+              </p>
+              <h4>123.50</h4>
+            </div>
+            <div class="statistics-item">
+              <p>
+                <i class="icon-sm fas fa-cloud-download-alt mr-2"></i>
+                On Hold
+              </p>
+              <h4>3500</h4>
+            </div>
+            <div class="statistics-item">
+              <p>
+                <i class="icon-sm fas fa-check-circle mr-2"></i>
+                Complete
+              </p>
+              <h4>7500</h4>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="btn-group alldel" role="group" aria-label="Basic example" style="display:none">
-            <button type="button" class="btn btn-primary delete_all" data-url="{{ route('project.deleteAll') }}">Delete</button>
-            <button type="button" class="btn btn-primary">Change Status</button>
-            <button type="button" class="btn btn-primary">Assign Users</button>
-         </div>
-        <div class="col-md-12 grid-margin stretch-card">
-          <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>
-                            <input type="checkbox" id="master">
-                            ID
-                          </th>
-                          <th>
-                            Title
-                          </th>
-                          <th>Client</th>
-                          <th>
-                            Start Date
-                          </th>
-                          <th>
-                            Due Date
-                          </th>
-                          <th>
-                            Tags
-                          </th>
-                          <th>
-                            Progress
-                          </th>
-                          <th colspan="4">
-                            Action
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody id="projectsdata">
-                      </tbody>
-                    </table>
-                  </div>
-            </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="btn-group alldel" role="group" aria-label="Basic example" style="display:none">
+      <button type="button" class="btn btn-primary delete_all"
+        data-url="{{ route('project.deleteAll') }}">Delete</button>
+      <button type="button" class="btn btn-primary">Change Status</button>
+      <button type="button" class="btn btn-primary">Assign Users</button>
+    </div>
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>
+                    <input type="checkbox" id="master">
+                    ID
+                  </th>
+                  <th>
+                    Title
+                  </th>
+                  <th>Client</th>
+                  <th>
+                    Start Date
+                  </th>
+                  <th>
+                    Due Date
+                  </th>
+                  <th>
+                    Tags
+                  </th>
+                  <th>
+                    Progress
+                  </th>
+                  <th colspan="4">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="projectsdata">
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 </div>
 @include('modals.addprojectmodal')
 @include('modals.editprojectmodal')
@@ -140,6 +141,9 @@
                        <div class="progress">
                         <div class="progress-bar bg-danger" role="progressbar" style="width: ${item.progress}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                        </div>
+                    </td>
+                    <td>
+                      <a href="project/view/${item._id}" class="btn btn-primary btn-sm"><i class="fa fa-edit" title="View"></i></button>
                     </td>
                     <td>
                       <button type="button" class="btn btn-primary btn-sm edit-project" data-id="${item._id}"><i class="fa fa-edit" title="Edit"></i></button>
@@ -423,6 +427,8 @@ $(document).on('click', ".delete-project", function (e) {
         }
     });
 });
+
+
 </script>
 <script type="text/javascript">
   $(function(){

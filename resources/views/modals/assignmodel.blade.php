@@ -8,8 +8,6 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="error-body">
-        </div>
         <div class="modal-body">
           <form action="{{ route('project.assignstore') }}" method="post" enctype="multipart/form-data" id="assignform">
             @csrf

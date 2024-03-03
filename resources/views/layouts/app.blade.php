@@ -24,15 +24,18 @@
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset("assets/css/style.css") }}">
+    
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <!-- endinject -->
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> --}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="{{ asset("assets/js/toastDemo.js")}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js" integrity="sha512-VvWznBcyBJK71YKEKDMpZ0pCVxjNuKwApp4zLF3ul+CiflQi6aIJR+aZCP/qWsoFBA28avL5T5HA+RE+zrGQYg==" crossorigin="anonymous"></script>
+    @stack('style_src')
     <style>
     .btn-circle { 
             width: 50px; 
@@ -41,7 +44,8 @@
             border-radius: 25px; 
             font-size: 10px; 
             text-align: center; 
-        } 
+    }
+
     .invalid-feedback{
         color: red;
     }
@@ -88,12 +92,16 @@
             z-index: 9999;
             background-color: rgba(255,255,255,0.9);
     }
+    .rm-circ{
+        border: transparent;
+    }
     </style>
     @stack('style')
+    @livewireStyles
 </head>
 <body>
     <div class="container-scroller">
-        <div class="col-md-12 col-sm-12 grid-margin stretch-card loader">
+        {{-- <div class="col-md-12 col-sm-12 grid-margin stretch-card loader">
             <div class="loader-demo-box">
               <div class="dot-opacity-loader">
                 <span></span>
@@ -101,7 +109,7 @@
                 <span></span>
               </div>
             </div>
-        </div>
+        </div> --}}
         @include('layouts.partials.header')
         <div class="container-fluid page-body-wrapper">
         @include('layouts.partials.sidebar')
@@ -113,10 +121,9 @@
         </div>
         @include('layouts.partials.footer')
         @include('layouts.partials.footer-scripts')
+        @livewireScripts
         @stack('script_src')
         @stack('script')
     </div>
-    <div id="app"></div>
-    <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 </body>
 </html>
