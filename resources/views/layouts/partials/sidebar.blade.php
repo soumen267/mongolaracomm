@@ -194,12 +194,12 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link" href="pages/widgets.html">
               <i class="fa fa-puzzle-piece menu-icon"></i>
               <span class="menu-title">Widgets</span>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a class="nav-link" href="{{ route('users.index') }}">
               <i class="fa fa-user menu-icon"></i>
@@ -213,7 +213,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/widgets.html">
+            <a class="nav-link" href="{{ route('clients.view') }}">
               <i class="fa fa-user menu-icon"></i>
               <span class="menu-title">Clients</span>
             </a>

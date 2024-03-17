@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,12 @@ Route::post('/users/send', [App\Http\Controllers\UserController::class, 'sendMai
 Route::get('/users/getData', [App\Http\Controllers\UserController::class, 'getData'])->name('user.getdata');
 Route::get('status', [UserController::class, 'userOnlineStatus']);
 Route::resource('users', UserController::class);
+
+Route::get('clients', [ClientController::class, 'index'])->name('clients.view');
+Route::post('clients/add', [ClientController::class, 'store'])->name('client.store');
+Route::get('clients/edit/{id}', [ClientController::class, 'edit'])->name('clients.edit');
+Route::put('clients/update', [ClientController::class, 'update'])->name('client.update');
+Route::delete('clients/delete/{id}', [ClientController::class, 'destroy'])->name('client.destroy');
 
 
 Route::get('/project/', [App\Http\Controllers\ProjectController::class, 'index'])->name('project.index');
